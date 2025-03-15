@@ -61,8 +61,10 @@ WHERE MONTH(issue_date) = 12
 GROUP BY loan_status
 
 --PART B. BANK LOAN REPORT
+
+-- Month wise loan amount
 SELECT 
-	MONTH(issue_date) AS Month_Munber, 
+	MONTH(issue_date) AS Month_Number, 
 	DATENAME(MONTH, issue_date) AS Month_name, 
 	COUNT(id) AS Total_Loan_Applications,
 	SUM(loan_amount) AS Total_Funded_Amount,
@@ -71,3 +73,52 @@ FROM Bank_loan
 GROUP BY MONTH(issue_date), DATENAME(MONTH, issue_date)
 ORDER BY MONTH(issue_date)
 
+-- Loan details by the state
+SELECT 
+	address_state AS State, 
+	COUNT(id) AS Total_Loan_Applications,
+	SUM(loan_amount) AS Total_Funded_Amount,
+	SUM(total_payment) AS Total_Amount_Received
+FROM Bank_loan
+GROUP BY address_state
+ORDER BY address_state
+
+-- Loan application details based on terms
+SELECT 
+	term AS Term, 
+	COUNT(id) AS Total_Loan_Applications,
+	SUM(loan_amount) AS Total_Funded_Amount,
+	SUM(total_payment) AS Total_Amount_Received
+FROM Bank_loan
+GROUP BY term
+ORDER BY term
+
+-- Loan taken by working professionals and their working exp. 
+SELECT 
+	emp_length AS Employee_Length, 
+	COUNT(id) AS Total_Loan_Applications,
+	SUM(loan_amount) AS Total_Funded_Amount,
+	SUM(total_payment) AS Total_Amount_Received
+FROM Bank_loan
+GROUP BY emp_length
+ORDER BY emp_length
+
+-- Reason for taking the loan
+SELECT 
+	purpose AS Purpose, 
+	COUNT(id) AS Total_Loan_Applications,
+	SUM(loan_amount) AS Total_Funded_Amount,
+	SUM(total_payment) AS Total_Amount_Received
+FROM Bank_loan
+GROUP BY purpose
+ORDER BY purpose
+
+-- Home Ownership (Whether loan applications own a home)
+SELECT 
+	home_ownership AS Home_Ownership, 
+	COUNT(id) AS Total_Loan_Applications,
+	SUM(loan_amount) AS Total_Funded_Amount,
+	SUM(total_payment) AS Total_Amount_Received
+FROM Bank_loan
+GROUP BY home_ownership
+ORDER BY home_ownership
